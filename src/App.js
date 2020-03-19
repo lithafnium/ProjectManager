@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import { CSSTransitionGroup } from 'react-transition-group' // ES6
 import './App.css';
-
+import { AppProvider } from './Context'
+import Sidebar from './components/Sidebar/Sidebar'
+import Header from './components/Header/Header'
+import ContentContainer from './components/Content/ContentContainer'
+import AddProject from './AddProject'
 function App() {
+  const [showAdd, toggleAdd] = useState(false)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+      <div className="App">
+        <Header toggleAdd = {toggleAdd} />
+        <Sidebar/>
+        <ContentContainer/>
+        <CSSTransitionGroup
+                transitionName="example"
+                transitionEnterTimeout={200}
+                transitionLeaveTimeout={200}
+            >
+            {showAdd && <AddProject toggleAdd = {toggleAdd}/>}
+        </CSSTransitionGroup>
+
+    
+
+      </div>
+      
+    </AppProvider>
   );
 }
 
