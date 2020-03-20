@@ -39,6 +39,15 @@ export const DateLine = styled.p`
     position: absolute;
     left: 104px; 
     width: 1px; 
-    height: 10px; 
+    height: 15px; 
+    background-color: #92a1d5
+`
+
+export const MinorLine = styled.p`
+    margin: 0px; 
+    position: absolute;
+    left: ${props => props.left + "px"}; 
+    width: 1px; 
+    height: 6px; 
     background-color: #92a1d5
 `

@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar/Sidebar'
 import Header from './components/Header/Header'
 import ContentContainer from './components/Content/ContentContainer'
 import AddProject from './AddProject'
+import { OptionsDiv } from './Styles'
 function App() {
   const [showAdd, toggleAdd] = useState(false)
   return (
