@@ -13,11 +13,11 @@ export const HeaderNav = styled.header`
 `
 
 export const ProjectSelection = styled.div`
-   
+    position: relative; 
     height: 35px; 
     width: 25%; 
     border-radius: 2px; 
-    border: 1px solid #92a1d5;
+    /* border: 1px solid #92a1d5; */
     margin-left: 280px; 
     display: flex; 
     align-items: center; 
@@ -25,7 +25,6 @@ export const ProjectSelection = styled.div`
 
     &:hover{
         background-color: #59566A; 
-        border: 1px solid #59566A;
         cursor: pointer; 
     }
 
@@ -40,6 +39,7 @@ export const CurrentProject = styled.p`
 
 export const AddProject = styled.p`
     margin-left: 15px; 
+    width: 100%; 
     color: #92a1d5;
     display: flex; 
     align-items: center;    
@@ -50,6 +50,51 @@ export const SettingsIcon = styled.span`
 
     &:hover{
         cursor: pointer; 
+    }
+`
+
+export const ProjectDropdown = styled.div`
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    background-color: #302d46; 
+    border: 1px solid #302d46; 
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+`
+
+export const Project = styled.div`
+    width: 100%; 
+    height: 40px;
+    display: flex; 
+    align-items: center;  
+    transition: 0.2s; 
+
+
+    & p {
+        margin: 0px; 
+        color: #eeeeee; 
+    }
+
+    &:hover{
+        background-color: #59566A; 
+    }
+`
+
+export const AddProjectDropdown = styled.div`
+    width: 100%; 
+    height: 35px;
+    display: flex; 
+    align-items: center;  
+    transition: 0.2s; 
+
+    & p {
+        margin: 0px; 
+        color: #eeeeee; 
+    }
+
+    &:hover{
+        background-color: #59566A; 
     }
 `
 

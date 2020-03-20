@@ -11,7 +11,7 @@ const AddProject = ({ toggleAdd }) => {
     const [endMonth, changeEndMonth] = useState('')
     const [endYear, changeEndYear] = useState('')
 
-    const { projects, projectsDispatch } = useContext(AppContext)
+    const { setCurrentProject, projectsDispatch } = useContext(AppContext)
 
     const onDateChange = e => {
         const id = e.target.id
@@ -45,10 +45,12 @@ const AddProject = ({ toggleAdd }) => {
         // projectsDispatch({ action: ADD_PROJECT})
         const startDate = new Date(startYear, startMonth, startDay)
         const endDate = new Date(endYear, endMonth, endDay)
-        projectsDispatch({ action: ADD_PROJECT, payload: {projectName, startDate, endDate}})
+        const id = nanoid()
+        setCurrentProject(id) 
+        projectsDispatch({ action: ADD_PROJECT, payload: {id, projectName, startDate, endDate}})
         toggleAdd(false)
     }
-
+ 
     return (
         <div className="AddContainer">
             <h2>Add Project</h2>

@@ -21,7 +21,7 @@ export const EDIT_TODO = 'EDIT_TODO'
 const projectsReducer = (prevState, { action, payload }) => {
     switch (action) {
         case (ADD_PROJECT):
-          return [...prevState, { id: nanoid(), projectName: payload.projectName, startDate: payload.startDate, endDate: payload.endDate}]
+          return [...prevState, { id: payload.id, projectName: payload.projectName, startDate: payload.startDate, endDate: payload.endDate}]
         case (DELETE_PROJECT):
           return prevState.filter(({ id }) => id !== payload)
         case (EDIT_PROJECT):
@@ -58,6 +58,10 @@ export const AppProvider = ({ children }) => {
         localStorage.setItem('projects', JSON.stringify(projects))
         localStorage.setItem('tasks', JSON.stringify(tasks))
         localStorage.setItem('todos', JSON.stringify(todos))
+        if(projects[0]){
+            console.log(localStorage.getItem('projects'))
+             setCurrentProject(projects[0].id)
+        }
     }, [projects, tasks, todos])
     return(
         <AppContext.Provider value = {{
