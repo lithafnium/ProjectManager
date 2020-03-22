@@ -21,52 +21,85 @@ export const EDIT_TODO = 'EDIT_TODO'
 const projectsReducer = (prevState, { action, payload }) => {
     switch (action) {
         case (ADD_PROJECT):
-          return [...prevState, { id: payload.id, projectName: payload.projectName, startDate: payload.startDate, endDate: payload.endDate}]
+            return [...prevState, {
+                id: payload.id,
+                projectName: payload.projectName, 
+                startDate: payload.startDate, 
+                endDate: payload.endDate
+            }]
         case (DELETE_PROJECT):
-          return prevState.filter(({ id }) => id !== payload)
+            return prevState.filter(({info}) => info.id !== payload)
         case (EDIT_PROJECT):
-          return prevState.map(
-            ({ id, ...rest }) => (id === payload.id
-              ? ({ ...payload, ...rest }) : ({ id, ...rest })),
-          )
+            return prevState.map(
+                ({ id, ...rest }) => (id === payload.id
+                    ? ({ ...payload, ...rest }) : ({ id, ...rest })),
+            )
         default:
-          return prevState
-      }
+            return prevState
+    }
 }
+
+const tasksReducer = (prevState, { action, payload }) => {
+    switch (action) {
+        case (ADD_TASK):
+            return [...prevState, {
+                project: payload.currentProject,
+                info: {
+                    id: payload.id,
+                    taskName: payload.taskName,
+                    startDate: payload.startDate,
+                    endDate: payload.endDate,
+                },
+                color: payload.color,
+            }]        
+        case (DELETE_TASK):
+            return prevState.filter(({ id }) => id !== payload)
+        case (EDIT_TASK):
+            return prevState.map(
+                (t) => (t.info.id === payload.id
+                    ? ({ ...t, ...payload }) : (t)),
+            )
+        default:
+            return prevState
+    }
+}
+
 
 const todosReducer = (prevState, { action, payload }) => {
 
 }
 
-const tasksReducer = (prevState, { action, payload }) => {
-
-}
 
 export const AppProvider = ({ children }) => {
-    const [projects, projectsDispatch] = useReducer(projectsReducer, null, 
+    const [projects, projectsDispatch] = useReducer(projectsReducer, null,
         () => JSON.parse(localStorage.getItem('projects')) || [])
-    
-    const [tasks, tasksDispatch] = useReducer(tasksReducer, null, 
+
+    const [tasks, tasksDispatch] = useReducer(tasksReducer, null,
         () => JSON.parse(localStorage.getItem('tasks')) || [])
 
-    const [todos, todosDispatch] = useReducer(todosReducer, null, 
+    const [todos, todosDispatch] = useReducer(todosReducer, null,
         () => JSON.parse(localStorage.getItem('todos')) || [])
 
     const [currentProject, setCurrentProject] = useState(null)
-    
+
     useEffect(() => {
         localStorage.setItem('projects', JSON.stringify(projects))
         localStorage.setItem('tasks', JSON.stringify(tasks))
         localStorage.setItem('todos', JSON.stringify(todos))
-        if(projects[0]){
-            console.log(localStorage.getItem('projects'))
-             setCurrentProject(projects[0].id)
-        }
+        
     }, [projects, tasks, todos])
-    return(
-        <AppContext.Provider value = {{
-            projects, 
-            tasks, 
+
+    useEffect(() => {
+        if (projects.length !== 0) {
+            console.log(localStorage.getItem('projects'))
+            setCurrentProject(projects[0].id)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    return (
+        <AppContext.Provider value={{
+            projects,
+            tasks,
             todos,
             currentProject,
             projectsDispatch,
@@ -74,7 +107,7 @@ export const AppProvider = ({ children }) => {
             todosDispatch,
             setCurrentProject,
         }}>
-            { children }
+            {children}
         </AppContext.Provider>
 
     )

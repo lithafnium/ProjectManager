@@ -1,16 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { TaskDiv, TaskItem, OptionsDiv, Delete, Divider, ColorPicker, Color } from './Styles'
+import React, { useEffect, useState, useRef, useContext } from 'react'
+import { TaskItem, OptionsDiv, Delete, Divider, ColorPicker, Color } from './Styles'
 import { Resizable } from "re-resizable";
 import { CSSTransitionGroup } from 'react-transition-group'
 import MaterialIcon, { colorPalette } from 'material-icons-react'
+import { AppContext, DELETE_TASK, EDIT_TASK } from './../../../../../Context'
 
-const Task = () => {
+const Task = ({ taskName, id, color }) => {
     const [taskWidth, setWidth] = useState(120)
     const [showOptions, toggleOptions] = useState(false)
     const [x, setx] = useState(0)
     const [y, sety] = useState(0)
-    const [color, setColor] = useState("#F65889")
     const wrapperRef = useRef(null)
+    const { tasksDispatch } = useContext(AppContext)
 
 
     const style = {
@@ -23,7 +24,6 @@ const Task = () => {
         alignItems: "center",
         margin: "15px 0px 15px 0px",
         transition: "0.15s",
-        
     }
 
     const options = e => {
@@ -39,6 +39,14 @@ const Task = () => {
         }
     }
 
+    const setColor = c => {
+        tasksDispatch({action: EDIT_TASK, payload: {color: c, id}})
+    }
+
+    const deleteTask = () => {
+        tasksDispatch({action: DELETE_TASK, payload: id})
+    }
+
     useEffect(() => {
         // Bind the event listener
         document.addEventListener("mousedown", handleClickOutside);
@@ -46,10 +54,10 @@ const Task = () => {
             // Unbind the event listener on clean up
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [])
+    }, []) 
 
     return (
-        <div ref={wrapperRef}>
+        <div ref={wrapperRef} style = {{width: taskWidth}}>
             <Resizable
                 style={style}
                 size={{ width: taskWidth, height: 35 }}
@@ -61,7 +69,7 @@ const Task = () => {
                 }}
                 onContextMenu={e => options(e)}
             >
-                <TaskItem>Testing</TaskItem>
+                <TaskItem>{taskName}</TaskItem>
             </Resizable>
             <CSSTransitionGroup
                 transitionName="example"
@@ -70,7 +78,7 @@ const Task = () => {
             >
                 {showOptions &&
                     <OptionsDiv x={x} y={y}>
-                        <Delete>
+                        <Delete onClick = {() => deleteTask()}>
                             <span className="nav-icon">
                                 <MaterialIcon icon="delete" color='#92a1d5' />
                             </span>

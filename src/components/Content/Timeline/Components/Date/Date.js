@@ -1,7 +1,7 @@
 import React from 'react'
 import { DateOuter, DateInner, DateText, DateColors, DateLine, MinorLine, DateLeft, DateRight } from './Styles'
 
-const Date = () => {
+const Date = ({ dateText }) => {
     return(
         <DateOuter>
             <DateInner>
