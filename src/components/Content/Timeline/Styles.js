@@ -11,11 +11,14 @@ export const TimelineContainer = styled.div`
 
 export const TaskContainer = styled.div`
     position: absolute; 
+    padding-top: 15px; 
     top: 60px; 
     width: 100%; 
+    height: 100%; 
     z-index: 0; 
+    padding-left: 105px; 
 `
 
 export const Row = styled.div`
-    width: 100%;
+ 
 `

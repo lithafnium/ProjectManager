@@ -1,16 +1,5 @@
 import styled from 'styled-components'
 
-export const TaskDiv = styled.div`
-    height: 35px; 
-    width: ${props => props.taskWidth + "px"}; 
-    background-color: #F65889;
-    border-radius: 25px; 
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    display: flex; 
-    align-items: center; 
-    margin: 15px 0px 15px 0px; 
-`
-
 export const TaskItem = styled.p`
     margin: 10px 10px 10px 20px;  
     font-size: 0.9rem; 
@@ -23,11 +12,12 @@ export const OptionsDiv = styled.div`
     width: 150px; 
     height: 80px; 
     background-color: #182249; 
-    top: ${props => props.y - 130 + "px"}; 
-    left:  ${props => props.x - 250 + "px"}; 
+    top: 10px; 
+    /* left: ${props => props.taskWidth + "px"}; */
+    left: 25px; 
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     border-radius: 3px; 
-    z-index: 20; 
+    z-index: 100; 
     padding: 15px; 
     display: flex; 
     flex-direction: column; 

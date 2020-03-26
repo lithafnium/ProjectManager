@@ -53,7 +53,7 @@ const tasksReducer = (prevState, { action, payload }) => {
                 color: payload.color,
             }]        
         case (DELETE_TASK):
-            return prevState.filter(({ id }) => id !== payload)
+            return prevState.filter(({ info }) => info.id !== payload)
         case (EDIT_TASK):
             return prevState.map(
                 (t) => (t.info.id === payload.id
