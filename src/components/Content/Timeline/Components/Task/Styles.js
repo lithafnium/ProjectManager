@@ -12,9 +12,8 @@ export const OptionsDiv = styled.div`
     width: 150px; 
     height: 80px; 
     background-color: #182249; 
-    top: 10px; 
-    /* left: ${props => props.taskWidth + "px"}; */
-    left: 25px; 
+    left: ${props => props.x - 355+ "px"}; 
+    top: ${props => props.y - 150 +"px"}; 
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     border-radius: 3px; 
     z-index: 100; 

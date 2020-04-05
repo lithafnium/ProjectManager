@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react' 
 import { AppContext, ADD_TASK } from './Context'
 import nanoid from 'nanoid'
+import moment from 'moment'
 
 const AddTask = ({ toggleTask }) => {
     const [taskName, changeName] = useState('')
@@ -45,10 +46,15 @@ const AddTask = ({ toggleTask }) => {
         // projectsDispatch({ action: ADD_PROJECT})
         console.log("added")
         const color = "#F65889"
-        const startDate = new Date(startYear, startMonth, startDay)
-        const endDate = new Date(endYear, endMonth, endDay)
+        const startString = startMonth + "-" + startDay  + "-" + startYear;
+        const endString = endMonth + "-" + endDay + "-" + endYear; 
+        const startDate = moment(startString, "MM-DD-YYYY")
+        const endDate = moment(endString, "MM-DD-YYYY")
         const id = nanoid()
-        tasksDispatch({ action: ADD_TASK, payload: {currentProject, id, taskName, startDate, endDate, color}})
+        const taskWidth = 120
+        const x = 0
+        const y = 0
+        tasksDispatch({ action: ADD_TASK, payload: {currentProject, id, taskName, startDate, endDate, color, taskWidth, x, y}})
         toggleTask(false)
     }
 

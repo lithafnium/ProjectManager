@@ -9,6 +9,12 @@ const Sidebar = () => {
             <NavItemList>
                 <NavItem>
                     <span className="nav-icon">
+                        <MaterialIcon icon="home" color='#92a1d5' />
+                    </span>
+                    HOME
+                </NavItem>
+                <NavItem>
+                    <span className="nav-icon">
                         <MaterialIcon icon="timeline" color='#92a1d5' />
                     </span>
                     TIMELINE

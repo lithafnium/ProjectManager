@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { AppContext, ADD_PROJECT } from './Context'
 import nanoid from 'nanoid'
+import moment from 'moment'
 
 const AddProject = ({ toggleAdd }) => {
     const [projectName, changeName] = useState('')
@@ -42,16 +43,17 @@ const AddProject = ({ toggleAdd }) => {
     }
 
     const addProject = () => {
-        // projectsDispatch({ action: ADD_PROJECT})
-        const startDate = new Date(startYear, startMonth, startDay)
-        const endDate = new Date(endYear, endMonth, endDay)
+        const startString = startMonth + "-" + startDay  + "-" + startYear;
+        const endString = endMonth + "-" + endDay + "-" + endYear; 
+        const startDate = moment(startString, "MM-DD-YYYY")
+        const endDate = moment(endString, "MM-DD-YYYY")
         const id = nanoid()
         setCurrentProject(id) 
         projectsDispatch({ action: ADD_PROJECT, payload: {id, projectName, startDate, endDate}})
         toggleAdd(false)
     }
  
-    return (
+    return ( 
         <div className="AddContainer">
             <h2>Add Project</h2>
             <input placeholder="Project Name..." className="projectName" 

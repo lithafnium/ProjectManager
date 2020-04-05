@@ -1,20 +1,16 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
-import Draggable from 'react-draggable'
 import { Rnd } from "react-rnd"
 import { TaskItem, OptionsDiv, Delete, Divider, ColorPicker, Color } from './Styles'
-import { Resizable } from "re-resizable";
 import { CSSTransitionGroup } from 'react-transition-group'
 import MaterialIcon from 'material-icons-react'
 import { AppContext, DELETE_TASK, EDIT_TASK } from './../../../../../Context'
+// TODO: set options div to the outside app 
 
-const Task = ({ taskName, id, color }) => {
-    const [taskWidth, setWidth] = useState(120)
-    const [disabled, setDisabled] = useState(false)
+const Task = ({ taskName, id, color, taskWidth, x, y }) => {
+    // const [taskWidth, setWidth] = useState(120)
     const [showOptions, toggleOptions] = useState(false)
-    const [x, setx] = useState(0)
-    const [y, sety] = useState(0)
-    const [deltaPosition, setDeltas] = useState({ x: 0, y: 0 })
-    const [resizePosition, setResizePosition] = useState({x: 0, y:0})
+    const [optionsX, setx] = useState(0)
+    const [optionsY, sety] = useState(0)
     const wrapperRef = useRef(null)
     const { tasksDispatch } = useContext(AppContext)
 
@@ -27,13 +23,15 @@ const Task = ({ taskName, id, color }) => {
         display: "flex",
         alignItems: "center",
         transition: "0.15s",
-        margin: "15px 0px 15px 0px",
+        margin: "0px 0px 15px 0px",
+        position: "relative"
     }
 
     const options = e => {
         e.preventDefault()
         setx(e.clientX)
         sety(e.clientY)
+        console.log(e.clientX + " " + e.clientY)
         toggleOptions(true)
     }
 
@@ -50,6 +48,13 @@ const Task = ({ taskName, id, color }) => {
 
     const deleteTask = () => {
         tasksDispatch({ action: DELETE_TASK, payload: id })
+    } 
+
+    const dragStop = (e, d) => {
+        //console.log("last: " + d.lastX + " " + d.lastY)
+        //console.log("x y: " + d.x + " " + d.y)
+        //console.log("delta: " + d.deltaX + " " + d.deltaY)
+        tasksDispatch({ action: EDIT_TASK, payload: {id, x: d.lastX, y: d.lastY}})
     }
 
     useEffect(() => {
@@ -64,18 +69,25 @@ const Task = ({ taskName, id, color }) => {
     return (
         <div>
             <Rnd
+                default = {{
+                    x: x,
+                    y: y
+                }}
                 style={taskStyle}
                 size={{ width: taskWidth, height: 35 }}
                 maxHeight={35}
                 minHeight={35}
+                minWidth={30}
                 resizeGrid={[30, 1]}
                 dragGrid = {[30, 50]}
                 bounds= "#taskcontainer"
-                disableDragging = {disabled}
                 onResizeStop={(e, direction, ref, d) => {
                     // setDisabled(!disabled)
-                    setWidth(taskWidth + d.width);
+                    console.log(taskWidth + d.width)
+                    // setWidth(taskWidth + d.width);
+                    tasksDispatch({action: EDIT_TASK, payload: {taskWidth: taskWidth + d.width, id}})
                 }}
+                onDragStop = {(e, d) => dragStop(e, d)} 
                 onContextMenu={e => options(e)}
                 handleStyles={{ top: null, bottom: null }}>
                     <div ref={wrapperRef}>
@@ -88,7 +100,7 @@ const Task = ({ taskName, id, color }) => {
                 transitionEnterTimeout={200}
                 transitionLeaveTimeout={200}>
                 {showOptions &&
-                    <OptionsDiv x={x} y={y} taskWidth={taskWidth}>
+                    <OptionsDiv x={optionsX} y={optionsY} taskWidth={taskWidth}>
                         <Delete onClick={() => deleteTask()}>
                             <span className="nav-icon">
                                 <MaterialIcon icon="delete" color='#92a1d5' />

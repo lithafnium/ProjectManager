@@ -42,6 +42,7 @@ const projectsReducer = (prevState, { action, payload }) => {
 const tasksReducer = (prevState, { action, payload }) => {
     switch (action) {
         case (ADD_TASK):
+            console.log(payload)
             return [...prevState, {
                 project: payload.currentProject,
                 info: {
@@ -51,10 +52,15 @@ const tasksReducer = (prevState, { action, payload }) => {
                     endDate: payload.endDate,
                 },
                 color: payload.color,
+                taskWidth: payload.taskWidth,
+                x: payload.x,
+                y: payload.y
             }]        
         case (DELETE_TASK):
             return prevState.filter(({ info }) => info.id !== payload)
         case (EDIT_TASK):
+            console.log(payload)
+
             return prevState.map(
                 (t) => (t.info.id === payload.id
                     ? ({ ...t, ...payload }) : (t)),

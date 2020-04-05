@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 
 export const ProjectSelectorTaskButton = styled.div`
-    width: 30%; 
+    width: 50%; 
     display: flex; 
     margin-left: 280px; 
 `
@@ -17,7 +17,7 @@ export const AddTask = styled.button`
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     border-radius: 25px; 
     margin-right: 25px; 
-    width: 150px; 
+    width: 180px; 
     transition: 0.2s; 
     
     &:hover{
@@ -45,7 +45,7 @@ export const HeaderNav = styled.header`
 export const ProjectSelection = styled.div`
     position: relative; 
     height: 35px; 
-    width: 80%;  
+    width: 90%;  
     border-radius: 2px; 
     border: 1px solid #92a1d5;
     display: flex; 

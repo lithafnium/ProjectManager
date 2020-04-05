@@ -7,16 +7,21 @@ export const TimelineContainer = styled.div`
     overflow-x: scroll;
     white-space: nowrap;  
     position: relative; 
+    display: flex; 
 `
 
 export const TaskContainer = styled.div`
     position: absolute; 
-    padding-top: 15px; 
+    /* padding-top: 15px;  */
+
+    margin-top: 15px; 
+    margin-left: 105px; 
     top: 60px; 
-    width: 100%; 
+    width: 3360px; 
     height: 100%; 
     z-index: 0; 
-    padding-left: 105px; 
+    flex-grow: 1;
+    /* padding-left: 105px;  */
 `
 
 export const Row = styled.div`
