@@ -90,7 +90,7 @@ html {
 .slash{
   margin: 0px 5px 0px 0px; 
   font-size: 1.8rem;
-  color: #1e2a5b; 
+  color:rgba(246, 88, 137, 0.8); 
 }
 
 .dateInput{
